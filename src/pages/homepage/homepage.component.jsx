@@ -41,6 +41,7 @@ export class HomePage extends React.Component {
         let filteredMonsters = this.state.monsters.filter(mons => mons.name.toLowerCase().includes(this.state.searchText.toLowerCase()));
         return (
             <div>
+                <h1>Hello</h1>
                 <CardContainer filteredMonsters={filteredMonsters}/>
                 <SearchBar type="search"
                     placeholder="search monsters"
