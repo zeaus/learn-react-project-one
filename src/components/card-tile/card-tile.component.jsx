@@ -1,17 +1,10 @@
 import React from 'react';
 
-export class CardTile extends React.Component {
+export const CardTile = ({ monster }) => (
 
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return (
-        <div>
-            <h1>{this.props.monster.name}</h1>
-            <h6>{this.props.monster.id}</h6>
-        </div>
-        )
-    }
-}
+    <div>
+        <img src={`https://robohash.org/${monster.id}?set=set2&size=180x180`} />
+        <h1>{monster.name}</h1>
+        <h6>{monster.id}</h6>
+    </div>
+)
