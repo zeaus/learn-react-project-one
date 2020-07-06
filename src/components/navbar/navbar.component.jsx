@@ -1,15 +1,20 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { auth } from '../../firebase/firebase.util';
+import NavCart from '../navbar-cart/nav-cart.component';
+import NavCartDropdown from '../navbar-cart-dropdown/navbar-cart-dropdown.component';
 
-const Navbar = ({ currentUser }) => (
+const Navbar = ({ currentUser, hidden }) => (
     <div>
         <ul>
-            {currentUser ?
-                <li>
-                    <span>Welcome {currentUser.displayName}</span>
-                </li> :
-                null
+            {
+
+                currentUser != null ?
+                    <li>
+                        <span>Welcome {currentUser.displayName}</span>
+                    </li> :
+                    null
             }
             <li>
                 <Link to='/learn-react-project-one/'>Categories</Link>
@@ -22,17 +27,35 @@ const Navbar = ({ currentUser }) => (
             </li>
             <li>
                 {
-                    currentUser ?
-                        <div>
-                            <a onClick={() => auth.signOut()}>Sign Out</a>
-                        </div> :
+                    currentUser != null ? <div>
+                        <a onClick={() => {
+                            auth.signOut()
+                            console.log('signout');
+                        }}>Sign Out</a>
+                    </div> :
                         <div>
                             <Link to='/learn-react-project-one/login'>Login</Link>
                         </div>
                 }
             </li>
+            <li>
+                <NavCart>
+                    {console.log(hidden)}
+                </NavCart>
+            </li>
         </ul>
+        {
+
+            hidden ? null :
+                <NavCartDropdown />
+        }
+
     </div>
 )
 
-export default Navbar;
+const mapStateToProps = ({ user: { currentUser }, cart: { hidden } }) => ({
+    currentUser,
+    hidden
+})
+
+export default connect(mapStateToProps)(Navbar);

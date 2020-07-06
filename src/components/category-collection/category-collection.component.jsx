@@ -15,13 +15,10 @@ const CategoryCollection = ({ title, history, match, items,location }) => (
                 //     history.goBack()
                 // }
             } }>{title}</h1>
-            {items.map((cat) => <CategoryItem key={cat.id} imgUrl={cat.imgUrl} title={cat.title} id={cat.id} category={title}/>)}
+            {items.map((item) => <CategoryItem key={item.id} item={item}/>)}
 
         </div>
     </div>
-
-
-
 )
 
 export default withRouter(CategoryCollection);
