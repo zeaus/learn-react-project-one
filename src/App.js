@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import './App.css';
-import { EHomePageCategory } from './pages/eHomepageCategories/ehomepagecategories.component';
+import EHomePageCategory from './pages/eHomepageCategories/ehomepagecategories.component';
 import { AuthenticatePage } from './pages/AuthenticatePage/authenticate.component';
 import { EHomePageList } from './pages/eHomepageList/ehomepagelist.component';
 import { HomePage } from './pages/homepage/homepage.component';
@@ -9,6 +9,9 @@ import Navbar from './components/navbar/navbar.component';
 import { auth, createUserProfile } from './firebase/firebase.util';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action'
+import { selectCurrentUser } from './redux/user/user.reselect';
+import { createStructuredSelector } from 'reselect';
+import CheckoutPage from './pages/checkoutpage/checkout.component';
 class App extends React.Component {
   constructor() {
     super();
@@ -45,27 +48,27 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <BrowserRouter>
-          <Navbar />
-          <Switch>
-            <Route exact path="/learn-react-project-one/" component={EHomePageCategory} />
-            <Route exact path="/learn-react-project-one/shop" component={EHomePageList} />
-            <Route exact path="/learn-react-project-one/shop/:categoryName" component={EHomePageList} />
 
-            <Route exact path="/learn-react-project-one/login" render={() => this.props.currentUser ? (<Redirect to='/learn-react-project-one/' />) : <AuthenticatePage />} />
+        <Navbar />
+        <Switch>
+          <Route exact path="/learn-react-project-one/" component={EHomePageCategory} />
+          <Route path="/learn-react-project-one/shop" component={EHomePageList} />
+          {/* <Route exact path="/learn-react-project-one/shop/:categoryName" component={EHomePageList} /> */}
+          <Route exact path="/learn-react-project-one/checkout" component={CheckoutPage} />
 
-            <Route path="/learn-react-project-one/old" component={HomePage} />
-            <Route path="/learn-react-project-one/old/:monsterId" />
-          </Switch>
-        </BrowserRouter>
+          <Route exact path="/learn-react-project-one/login" render={() => this.props.currentUser ? (<Redirect to='/learn-react-project-one/' />) : <AuthenticatePage />} />
+
+          <Route path="/learn-react-project-one/old" component={HomePage} />
+          <Route path="/learn-react-project-one/old/:monsterId" />
+        </Switch>
 
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  currentUser: state.user.currentUser
+const mapStateToProps = createStructuredSelector({
+  currentUser: selectCurrentUser
 })
 
 const mapDispatchToProps = dispatch => ({

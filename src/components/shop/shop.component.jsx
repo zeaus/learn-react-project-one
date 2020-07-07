@@ -1,35 +1,15 @@
 import React from 'react';
 import CategoryCollection from '../category-collection/category-collection.component';
 import './shop.styles.scss';
-import { SHOPDATA } from '../../shop.data';
-import { withRouter } from 'react-router-dom';
-class Shop extends React.Component {
+import { withRouter, Route } from 'react-router-dom';
+import CategoryOverview from '../category-overview/category-overview.component';
 
-    constructor(props) {
-        super(props);
+const Shop = ({ match }) => (
+    <div className="shop">
+        <Route exact path={`${match.path}`} component={CategoryOverview} />
+        <Route exact path={`${match.path}/:categoryId`} component={CategoryCollection} />
+    </div>
+)
 
-        this.state = {
-            categories: SHOPDATA.categories
-        }
-        // console.log(props.match.params.categoryName)
-    }
 
-    componentDidMount() {
-        // if(this.props.params!=undefined)
-
-    }
-
-    render() {
-        return (
-
-            <div className="shop">
-                {this.props.match.params.categoryName!=undefined?
-                this.state.categories.filter(cat=>cat.title==this.props.match.params.categoryName).map(({ title, id, items }) => <CategoryCollection key={id} title={title} items={items} />)
-                :this.state.categories.map(({ title, id, items }) => <CategoryCollection key={id} title={title} items={items} />)}
-                
-            </div>
-        )
-    }
-}
-
-export default withRouter(Shop)
+export default withRouter(Shop);
