@@ -8,17 +8,18 @@ const COLLECTION_ID_MAP = {
     jacket: 29,
 }
 
-const categorySelector = state => state.category;
+const categorySelector = state => state.category.categories;
 
 export const selectCategories = createSelector(
     [categorySelector],
-    category => {
-        debugger
-        console.log(Object.keys(category).map(key => category[key]))
-        return (Object.keys(category).map(key => category[key]))}
+    categories => (
+        categories ?
+            Object.keys(categories).map(key => categories[key])
+            : []
+    )
 );
 
 export const selectCategory = categoryUrlParam => createSelector(
     [categorySelector],
-    categories => categories[categoryUrlParam]
+    categories => categories ? categories[categoryUrlParam] : null
 )

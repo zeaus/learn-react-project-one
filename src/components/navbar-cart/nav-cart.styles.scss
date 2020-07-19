@@ -1,0 +1,15 @@
+.navCartWrapper {
+    position: relative;
+
+    svg {
+        width: 40px;
+        height: 40px;
+    }
+
+    .itemCount{
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, 0);
+    }
+}

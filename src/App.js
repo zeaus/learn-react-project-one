@@ -6,12 +6,13 @@ import { AuthenticatePage } from './pages/AuthenticatePage/authenticate.componen
 import { EHomePageList } from './pages/eHomepageList/ehomepagelist.component';
 import { HomePage } from './pages/homepage/homepage.component';
 import Navbar from './components/navbar/navbar.component';
-import { auth, createUserProfile } from './firebase/firebase.util';
+import { auth, createUserProfile, saveSomeEntry, saveShop } from './firebase/firebase.util';
 import { connect } from 'react-redux';
 import { setCurrentUser } from './redux/user/user.action'
 import { selectCurrentUser } from './redux/user/user.reselect';
 import { createStructuredSelector } from 'reselect';
 import CheckoutPage from './pages/checkoutpage/checkout.component';
+import { selectCategories } from './redux/category/category.reselect';
 class App extends React.Component {
   constructor() {
     super();
@@ -29,16 +30,21 @@ class App extends React.Component {
 
         userRef.onSnapshot(snapshot => {
           this.props.setCurrentUser({
-
             id: snapshot.id,
             ...snapshot.data()
-
           })
         })
       }
       this.props.setCurrentUser(userAuth)
     });
 
+    // random entry
+    // const a = async () => console.log(await saveSomeEntry())
+    // a()
+
+    //shop entry
+    // console.log(this.props.categoryArray);
+    // saveShop('categories', this.props.categoryArray.map(({ title, imgUrl, items }) => ({ title, imgUrl, items })))
   }
 
   componentWillUnmount() {
@@ -48,19 +54,19 @@ class App extends React.Component {
   render() {
     return (
       <div>
-
-        <Navbar />
-        <Switch>
-          <Route exact path="/learn-react-project-one/" component={EHomePageCategory} />
-          <Route path="/learn-react-project-one/shop" component={EHomePageList} />
-          {/* <Route exact path="/learn-react-project-one/shop/:categoryName" component={EHomePageList} /> */}
-          <Route exact path="/learn-react-project-one/checkout" component={CheckoutPage} />
-
-          <Route exact path="/learn-react-project-one/login" render={() => this.props.currentUser ? (<Redirect to='/learn-react-project-one/' />) : <AuthenticatePage />} />
-
-          <Route path="/learn-react-project-one/old" component={HomePage} />
-          <Route path="/learn-react-project-one/old/:monsterId" />
-        </Switch>
+        <header>
+          <Navbar />
+        </header>
+        <main>
+          <Switch>
+            <Route exact path="/learn-react-project-one/" component={EHomePageCategory} />
+            <Route path="/learn-react-project-one/shop" component={EHomePageList} />
+            <Route exact path="/learn-react-project-one/checkout" component={CheckoutPage} />
+            <Route exact path="/learn-react-project-one/login" render={() => this.props.currentUser ? (<Redirect to='/learn-react-project-one/' />) : <AuthenticatePage />} />
+            <Route path="/learn-react-project-one/old" component={HomePage} />
+            <Route path="/learn-react-project-one/old/:monsterId" />
+          </Switch>
+        </main>
 
       </div>
     );
@@ -68,7 +74,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = createStructuredSelector({
-  currentUser: selectCurrentUser
+  currentUser: selectCurrentUser,
+  categoryArray: selectCategories
 })
 
 const mapDispatchToProps = dispatch => ({

@@ -14,7 +14,7 @@ const ShopCategoryListed = ({ title, subtitle, imgUrl, size, items, history,matc
         onClick={()=> history.push(`${match.url}/${title}`)}
         >
         <div className="inner-content">
-            <h1>{title}</h1>
+            <span>{title}</span>
             <span>{subtitle}</span>
         </div>
     </div>

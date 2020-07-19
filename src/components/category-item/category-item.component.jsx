@@ -3,7 +3,7 @@ import React from 'react';
 import { withRouter, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { addItemToCart } from '../../redux/cart/cart.action'
-
+import './category-item.styles.scss';
 const ShopCategory = ({ history, match, item, addItemToCart }) => {
     const { title, subtitle, imgUrl, category, price, id } = item
     return (
@@ -25,7 +25,7 @@ const ShopCategory = ({ history, match, item, addItemToCart }) => {
         >
             {/* {console.log('categoryitem', match, location, history)} */}
             <div className="inner-content">
-                <h1>{title}</h1>
+                <span>{title}</span>
                 <span>{subtitle}</span>
                 <span>{price}</span>
 

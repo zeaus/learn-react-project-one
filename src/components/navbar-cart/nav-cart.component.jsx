@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect'
 import { selectCartItemCount } from '../../redux/cart/cart.reselect'
 import { toggleCartHidden } from '../../redux/cart/cart.action';
+import './nav-cart.styles.scss';
 
 const NavCart = ({ toggleCartHidden, itemCount }) => (
     <div className='navCartWrapper' onClick={toggleCartHidden}>

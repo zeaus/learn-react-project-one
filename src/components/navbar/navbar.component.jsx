@@ -7,53 +7,78 @@ import NavCartDropdown from '../navbar-cart-dropdown/navbar-cart-dropdown.compon
 import { createStructuredSelector } from 'reselect';
 import { selectCartHidden } from '../../redux/cart/cart.reselect';
 import { selectCurrentUser } from '../../redux/user/user.reselect';
+import styled from 'styled-components';
+
+const NavWrapper = styled.ul`
+display: flex;
+flex-wrap: wrap;
+list-style: none;
+justify-content: flex-end;
+padding: 20px;
+box-shadow: 0px 0px 20px 0px #00000022;
+height: 60px;
+margin:0;
+`
+
+const NavItem = styled.li`
+padding:20px;
+`
+const NavItemCart = styled.li`
+padding: 0 20px;
+display: flex;
+align-items: center;
+flex-wrap: wrap;
+`
+const WelcomeMessage = styled.li`
+flex-grow: 1;
+text-transform: uppercase;
+padding: 20px;
+`
+const NavLink = styled(Link)`
+text-decoration: none;
+`
+
 
 const Navbar = ({ currentUser, hidden }) => (
-    <div>
-        <ul>
+    <NavWrapper>
+        {
+            currentUser != null ?
+                <WelcomeMessage>
+                    <span>Welcome {currentUser.displayName}</span>
+                </WelcomeMessage> :
+                null
+        }
+        <NavItem>
+            <NavLink to='/learn-react-project-one/'>Categories</NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink to='/learn-react-project-one/shop'>Shop</NavLink>
+        </NavItem>
+        <NavItem>
+            <NavLink to='/learn-react-project-one/old'>Monster App</NavLink>
+        </NavItem>
+        <NavItem>
             {
-
                 currentUser != null ?
-                    <li>
-                        <span>Welcome {currentUser.displayName}</span>
-                    </li> :
-                    null
-            }
-            <li>
-                <Link to='/learn-react-project-one/'>Categories</Link>
-            </li>
-            <li>
-                <Link to='/learn-react-project-one/shop'>Shop</Link>
-            </li>
-            <li>
-                <Link to='/learn-react-project-one/old'>Monster App</Link>
-            </li>
-            <li>
-                {
-                    currentUser != null ? <div>
+                    <div>
                         <a onClick={() => {
                             auth.signOut()
                             console.log('signout');
                         }}>Sign Out</a>
                     </div> :
-                        <div>
-                            <Link to='/learn-react-project-one/login'>Login</Link>
-                        </div>
-                }
-            </li>
-            <li>
-                <NavCart>
-                    {console.log(hidden)}
-                </NavCart>
-            </li>
-        </ul>
-        {
-
-            hidden ? null :
-                <NavCartDropdown />
-        }
-
-    </div>
+                    <div>
+                        <NavLink to='/learn-react-project-one/login'>Login</NavLink>
+                    </div>
+            }
+        </NavItem>
+        <NavItemCart>
+            <NavCart />
+            {
+                hidden ? null :
+                    <NavCartDropdown />
+            }
+        </NavItemCart>
+    </NavWrapper>
 )
 
 const mapStateToProps = createStructuredSelector({

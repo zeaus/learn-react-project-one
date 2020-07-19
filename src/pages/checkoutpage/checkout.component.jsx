@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { addItemToCart } from '../../redux/cart/cart.reselect';
 import { selectCartItemTotal } from '../../redux/cart/cart.reselect';
 import CheckoutItem from '../../components/checkout-item/checkout-item.component';
+import StripeButton from '../../components/stripe-button/strip-button.component';
 const CheckoutPage = ({ cartItems, total }) => (
     <div className='checkoutPage'>
         <div className="checkoutHeader">
@@ -19,6 +20,8 @@ const CheckoutPage = ({ cartItems, total }) => (
                 (cartItems.map(item => <CheckoutItem key={item.id} item={item} />)) :
                 <div>No Item in Cart</div>}
         <div className='total'>TOTAL: ${total}</div>
+
+        <StripeButton price={total} />
     </div>
 )
 

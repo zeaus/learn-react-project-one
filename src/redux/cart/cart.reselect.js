@@ -7,12 +7,17 @@ export const addItemToCart = createSelector(
     (cart) => cart.cartItems
 )
 
-export const decreaseItemToCart = createSelector(
-    [selectCart],
-    (cart) => cart.cartItems
-)
+// export const decreaseItemToCart = createSelector(
+//     [selectCart],
+//     (cart) => cart.cartItems
+// )
 
-export const removeItemToCart = createSelector(
+// export const removeItemToCart = createSelector(
+//     [selectCart],
+//     (cart) => cart.cartItems
+// )
+
+export const resetCart = createSelector(
     [selectCart],
     (cart) => cart.cartItems
 )
