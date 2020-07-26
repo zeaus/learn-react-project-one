@@ -1,49 +1,39 @@
 {
-  "name": "tutorial",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://zeaus.github.com/learn-react-project-one",
-  "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
-  },
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
-    "node-sass": "^4.14.1",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-redux": "^7.2.0",
-    "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.1",
-    "react-stripe-checkout": "^2.6.3",
-    "redux": "^4.0.5",
-    "redux-logger": "^3.0.6",
-    "redux-persist": "^6.0.0",
-    "reselect": "^4.0.0",
-    "styled-components": "^5.1.1"
+  "name": "learn-react-project-one-server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "engines": {
+    "npm": "6.12.1",
+    "node": "12.13.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "client": "cd front-end && npm start",
+    "server": "nodemon server.js",
+    "build": "cd front-end && npm build",
+    "dev": "concurrently --kill-others-on-fail \"npm run server\" \"npm run \"client\" ",
+    "start": "node server.js",
+    "heroku-postbuild": "cd front-end  && npm install --only=dev --no-shrinkwrap && npm run build"
   },
-  "eslintConfig": {
-    "extends": "react-app"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zeaus/learn-react-project-one.git"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+  "author": "taha",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zeaus/learn-react-project-one/issues"
+  },
+  "homepage": "https://github.com/zeaus/learn-react-project-one#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "redux-thunk": "^2.3.0",
+    "rxjs": "^6.6.0",
+    "stripe": "^8.76.0"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
   }
 }
